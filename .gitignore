@@ -4,6 +4,9 @@
 *.aux
 *.out
 
+# latex output
+*.pdf
+
 .DS_Store
 env
 
