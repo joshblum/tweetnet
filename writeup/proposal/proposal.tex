@@ -1,0 +1,247 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{graphicx} % Required for including pictures
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[]{hyperref}
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+frame=tb,
+language=Java,
+aboveskip=3mm,
+belowskip=3mm,
+showstringspaces=false,
+columns=flexible,
+basicstyle={\small\ttfamily},
+numbers=none,
+numberstyle=\tiny\color{gray},
+keywordstyle=\color{blue},
+commentstyle=\color{dkgreen},
+stringstyle=\color{mauve},
+breaklines=true,
+breakatwhitespace=true
+tabsize=3
+}
+
+\usepackage[top=.9in, bottom=.9in, left=1in, right=1in]{geometry}
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{0pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+%\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\graphicspath{{./screenshots/}} % Specifies the directory where pictures are stored
+\newcommand{\code}[1]{\texttt{#1}}
+
+%----------------------------------------------------------------------------------------
+%   TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{ 
+\normalfont \normalsize 
+\textsc{6.857 Computer and Network Security} % Your university, school and/or department name(s)
+\horrule{0.5pt} % Thin top horizontal rule
+\large Bennett Cyphers, Joshua Blum, Ofir Nachum, Louis Sobel \\
+{\normalsize tweetnet@mit.edu} % The assignment title
+\horrule{1pt} % Thick bottom horizontal rule
+}
+
+\author{Project Proposal: Tweetnet}
+\date{\normalsize\today} % Today's date or a custom date
+\begin{document}
+
+\maketitle % Print the title
+\section {Introduction}
+
+Twitter is a centralized feed subscription service.
+The social network boasts over 500 million users as well as 340 million daily tweets and 1.3 billion daily search queries.
+Any user can send or broadcast a \emph{tweet}, a 140 character message that can be synchronously or
+asynchronously read by either registered users or anonymous browsers.
+Twitter can be accessed through web browsers, SMS, and a developer API.
+
+Twitter is a public, fast, free, robust, and reliable communication mechanism.
+Therefore, we posit that Twitter is a good tool for command and control of unknown sets of servers such as a botnet.
+A botnet controller can rely on Twitter's infrastructure to persist communication to nodes,
+alleviating the need to build and maintain such mechanisms themselves.
+
+\section {Related Work}
+
+In recent years, botnets and spamnets have been found on Twitter by individual investigators.
+In 2009, Arbor Networks reported finding a Twitter account which periodically posted base-64 encoded commands \cite{arbor}.
+These commands would direct presumably infected computers to download certain malicious files which would leak data from the victim's computer.
+
+In 2010, Trend Micro discovered another application of the technique, in which a botnet
+known as Mehika used a binary called \code{WORM\_TWITBOT} to hijack victims' computers \cite{trendmicro}.
+The infected machines used the victims' Twitter account to send commands among the infected machines.
+
+In 2013, a group of San Jose University researchers designed and implemented what they call a SocialNetworkingBot \cite{socialnetworking}.
+This system uses Twitter for command and control - a bot master tweets commands which are acted on by individual bots.
+The botnet serves as a proof of concept and shows that building such a botnet is possible.
+
+In similar fashion, Nagaraja et al. introduce a sophisticated botnet termed Stegobot \cite{stegobot}.
+This botnet is novel in the way that it communicates: via a model of covert communication through image sharing. 
+Specifically, communication is hidden via image steganography. 
+This implementation shows how powerful social networks can be for botnet communication.
+
+In addition to these very sophisticated botnet designs, researchers are also hard at work
+developing methods that uncover botnet activity. A group of Georgia Tech researchers recently
+hypothesized ideas for network-based anomaly detection as botnet detection mechanisms \cite{botsniffer}.
+They propose that bots of the same botnet should have temporally correlated network activities - 
+for example, a botnet might be programmed to tweet predictably every 15 minutes. 
+This type of behavior would result in a flood of network traffic every 15 minutes, which may be detectable.
+
+\section{Project Goals}
+
+The goal of our project is to detect the use of Twitter for botnet command and control.  We first have to reason about how such a botnet would look like.  What are the key characteristics and patterns?  Is there a defining feature that can easily identify a botnet on Twitter?  \\
+
+To test these theories, we will analyze Twitter's Firehose, a real time data stream of tweets as they are published. We categorize different techniques as follows:
+
+\begin{description}
+
+\item[Scalar Techniques] \hfill\\
+	Applied to one tweet. Does a specific tweet look like something a botnet would understand?
+	If a link is present, we can examine the content to see if malicious.
+
+\item[Vector Techniques] \hfill\\
+	Applies to a set of tweets. Analyze based on user, hashtags, or retweet patterns.
+
+\item[Graph Techniques] \hfill \\
+	Applies to followers, retweets, and view of the network from different users' perspectives.
+
+\end{description}
+
+Using models based on these three techniques, we suspect that a Twitter command and control channel will be detectable. We expect the communications to have identifiable patterns, either in content or in retweet networks. To help figure out what these patterns may be, we intend to design a botnet communication protocol of our own. We will design the protocol with the following traits desirable in a social network-utilizing botnet:
+
+\begin{description}
+
+\item[Stealth] \hfill\\
+	The botnet's activities on Twitter should not be detectable by Twitter admins.
+
+\item[Authenticity] \hfill\\
+	The botnet's slaves can only be controlled by the specified master.
+	The botnet cannot be stolen by a rogue master.
+
+\item[Robustness] \hfill \\
+	Loss of communication with a number of slaves or the master does not destroy the botnet.
+
+\item[Confidentiality] \hfill \\
+	The communication should only be readable by bots within the network.
+
+\end{description}
+
+We will test a protocol using Twitter, or a similar service as a communication channel.
+Using the results of our models, we can build upon our protocol, extracting desirable features from any networks we find. 
+
+
+\section{Conclusion}
+
+The project will consist of initial infrastructure to process the Firehose data as well as a suite of machine learning models using the scalar, vector, and graphical techniques. In addition, we intend to develop our own command and control protocol using Twitter to help us detect any such protocols that are currently in use.
+
+There are two risks to the project. One is that we may not be able to detect a botnet on twitter. In this case, working through how we would
+go about finding one will still be a significant portion of the project. A second risk is that designing and prototyping a botnet could be
+unethical. However, there is precedent in the literature for this \cite{stegobot,skype,socialnetworking},
+and reasoning through how one could be built is essential to understanding how they can be detected.
+
+
+\clearpage
+\section{Bibliography}
+
+\begingroup
+\renewcommand{\section}[2]{}%
+\begin{thebibliography}{99}
+
+\bibitem{arbor}
+	\url{http://www.arbornetworks.com/asert/2009/08/twitter-based-botnet-command-channel/}
+
+\bibitem{trendmicro}
+	\url{http://www.trendmicro.com/cloud-content/us/pdfs/security-intelligence/white-papers/wp_discerning-relationships__mexican-botnet.pdf}
+
+\bibitem{cryptome}
+	\url{http://cryptome.org/2014/03/massive-twitter-botnet.htm}
+
+\bibitem{socialnetworking}
+	\url{http://www.mecs-press.org/ijcnis/ijcnis-v5-n6/IJCNIS-V5-N6-2.pdf}
+
+\bibitem{trojan7}
+	\url{http://trojan7malware.blogspot.com/2013/06/botnet-using-twitter-as-c.html}
+
+\bibitem{flashback}
+	\url{http://www.intego.com/mac-security-blog/flashback-mac-malware\%2Duses-twitter-as-command-and-control-center/}
+
+\bibitem{botsniffer}
+	\url{http://corescholar.libraries.wright.edu/cgi/viewcontent.cgi?article=1006&context=cse}
+
+\bibitem{kartaltepe}
+	\url{http://link.springer.com/chapter/10.1007/978-3-642-13708-2_30}
+
+\bibitem{burghouwt}
+	\url{http://link.springer.com/chapter/10.1007/978-3-642-25560-1_9}
+
+\bibitem{botnet_survey}
+	\url{http://www.sciencedirect.com/science/article/pii/S1389128612003568#}
+
+\bibitem{stegobot}
+	\url{http://www.cs.utexas.edu/~amir/papers/IH11-Stegobot.pdf}
+
+\bibitem{skype}
+	\url{http://link.springer.com/chapter/10.1007\%2F978-3-642-14215-4_5}
+
+\end{thebibliography}
+
+\endgroup
+
+\end{document}
+
+
+
