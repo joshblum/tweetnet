@@ -2,7 +2,8 @@
 Gets auth, save this in your .tweetnet
 """
 import os
-
+import sys
+sys.path.append("/mit/ofir/6857/tweetnet");
 import tweepy
 
 consumer_token = os.environ['TWITTER_CONSUMER_KEY']

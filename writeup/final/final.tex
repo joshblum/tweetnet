@@ -84,6 +84,15 @@ Louis Sobel (sobel)\\
 \section {Introduction}
 
 \section {Related Work}
+Botnets using social networks for command and control are a relatively recent phenomenon.  These botnets take advantage of the reliable infrastructure and easy-to-use APIs of social networks to communicate commands to infected computers.  Several of these botnets have already been detected.  
+
+Several botnets have been discovered in the wild \cite{arbor, trendmicro, flashback}.  In 2009, Arbor Networks \cite{arbor} discovered a Twitter bot which periodically tweets base-64 encoded commands that specify URLs for downloading malicious binaries.  The Mehika botnet \cite{trendmicro} is another botnet which was found utilizing Twitter to send commands to its botslaves.  The Macintosh Flashware malware provides another example of a botnet using Twitter for command and control \cite{flashback}.  The malware queries Twitter for tweets containing specific hashtags.  
+
+In addition to these detected botnets, several groups have designed and implemented social networking botnets \cite{socialnetworking, trojan7, stegobot}.  A group of San Jose University researchers design and implement their \emph{SocialNetworkingBot} to issue commands via Twitter for such things as browsing a URL, taking a screenshot, shutting down the computer, or changing botmaster \cite{socialnetworking}.  Another notable example is a group of researches developing \emph{Stegobot}, a botnet which covertly communicates via JPEG stegonography of images shared on social networks.  These examples highlight the ease in which it is possible to use social networks as botnet infrastructure.
+
+In response the the growing threat of botnets using social networks, researchers have proposed several detection mechanisms to thwart such botnets \cite{botsniffer, kartaltepe, burghouwt}.  Gu et al. propose an approach using network-based anomaly detection \cite{botsniffer}.  These methods are useful when botnet activity is temporally correlated.  Kartaltepe et al. present a content-specific method, proposing a classifier for classifying natural text from base-64 or otherwise encoded commands \cite{kartaltepe}.  The group also suggests client-side detection mechanisms that are alerted by network traffic of dubious origin (for example, if a Twitter URL is requested when no browser actually has Twitter displayed).
+
+The previous work in this field shows that, while botnets using social networks is a relatively recent phenomenon, the threat of even better concealed botnets is growing rapidly.  For this reason, it is imperative that new detection mechanisms be devised.
 
 \section{Game Overview}
 	\subsection{Justification}
