@@ -15,3 +15,4 @@ env
 # python jank
 *.pyc
 *.rdb
+*.fdb_latexmk
