@@ -48,22 +48,24 @@
 
 %\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
 
-\newcommand{\code}[1]{\texttt{#1}}
+\renewcommand{\c}[1]{\texttt{#1}}
 \newcommand\todo[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\teambb}{\c{bennyblum}}
+\newcommand{\teamol}{\c{louisofir}}
 
 %----------------------------------------------------------------------------------------
 %   TITLE SECTION
 %----------------------------------------------------------------------------------------
 
 \title{ 
-Tweetnet: Looking for Botnets on Twitter\
+Tweetnet: Finding the bots of the flock\
 }
 
 \author{
-Josh Blum (blum)\\
-Bennet Cyphers (benny)\\
-Ofir Nachum (ofir)\\
-Louis Sobel (sobel)\\
+Josh Blum (joshblum@mit.edu)\\
+Bennet Cyphers (bcyphers@mit.edu)\\
+Ofir Nachum (ofir@mit.edu)\\
+Louis Sobel (sobel@mit.edu)\\
 \\
 6.857 Final Project
 \date{\today}
@@ -99,52 +101,102 @@ The previous work in this field shows that, while botnets using social networks 
 	\subsection{Infrastructure}
 	\subsection{Rules}
 
-\section{Meet the Team}
-	\subsection{Team Blumbenny}
+% \section{Meet the Team}
+% 	\subsection{Team Blumbenny}
 
-	\begin{figure}
-		\centering
-		\begin{subfigure}{.4\textwidth}
-			\centering
-			\includegraphics[width=.4\textwidth]{resources/blum.jpg}
-			\caption{Blum}
-		\end{subfigure}
-		\begin{subfigure}{.4\textwidth}
-			\centering
-			\includegraphics[width=.4\textwidth]{resources/benny.jpg}
-			\caption{Benny}
-		\end{subfigure}
-		\caption{Team Blumbenny}
-	\end{figure}
+% 	\begin{figure}
+% 		\centering
+% 		\begin{subfigure}{.4\textwidth}
+% 			\centering
+% 			\includegraphics[width=.4\textwidth]{resources/blum.jpg}
+% 			\caption{Blum}
+% 		\end{subfigure}
+% 		\begin{subfigure}{.4\textwidth}
+% 			\centering
+% 			\includegraphics[width=.4\textwidth]{resources/benny.jpg}
+% 			\caption{Benny}
+% 		\end{subfigure}
+% 		\caption{Team Blumbenny}
+% 	\end{figure}
 
 
-	\subsection{Team Lofir}
+% 	\subsection{Team Lofir}
 	
-		\begin{figure}
-		\centering
-		\begin{subfigure}{.4\textwidth}
-			\centering
-			\includegraphics[width=.4\textwidth]{resources/louis.jpg}
-			\caption{Louis}
-		\end{subfigure}
-		\begin{subfigure}{.4\textwidth}
-			\centering
-			\includegraphics[width=.4\textwidth]{resources/ofir.jpg}
-			\caption{Ofir}
-		\end{subfigure}
-		\caption{Team Lofir}
-	\end{figure}
+% 		\begin{figure}
+% 		\centering
+% 		\begin{subfigure}{.4\textwidth}
+% 			\centering
+% 			\includegraphics[width=.4\textwidth]{resources/louis.jpg}
+% 			\caption{Louis}
+% 		\end{subfigure}
+% 		\begin{subfigure}{.4\textwidth}
+% 			\centering
+% 			\includegraphics[width=.4\textwidth]{resources/ofir.jpg}
+% 			\caption{Ofir}
+% 		\end{subfigure}
+% 		\caption{Team Lofir}
+% 	\end{figure}
 
 \section{Round 1}
 	\subsection{Setup}
+		During the first round, each team designed a single \c{Bot} and \c{BotMaster} pair which had to submit a single flag. There were 10 unique handles used in the game pool, of which 1 was the botmaster and the other 9 being benign users, which would tweet with a $0.20$ probability each second. \teambb's bots knew the botmaster handle at the beginning of the round whereas \teamol's bots established the botmaster as part of their design. \\
+
+		In this round bots were allowed to begin arbitrary secrets such as values for a random seed or cryptographic keys. The goal of this round was to allow the teams to familiarize themselves with the game infrastructure and begin building discovery techniques. For this reason, we allowed may simplifications to the game structure for this round, with the intent of modifying the game structure in the subsequent round. 
+
 	\subsection{Designs}
+		\subsubsection{\teambb}
+			\teambb build the \c{SingelCharBotMaster} which relied on a \c{prng} to signify which tweets were information carrying. The botmaster and bots both shared a common seed value for the \c{prng}. The \c{prng} was then used to transfer a single character in each tweet that was information carrying. The character offset and value for which information tweets was used by each next random value. Figure \ref{fig:prng} shows an example of how the \c{prng} was used to offset information tweets, and figure \ref{fig:prng-tweet-ex} shows how this offset is used to store a character of the flag within a tweet. \\
+
+		\begin{figure}[H]
+		    \center\includegraphics[scale=0.70]{resources/prng.png}
+		    \caption{An example of how the \c{SingleCharBotMaster} design uses a \c{prng} to offset which tweets carry information.}
+		    \label{fig:prng}
+		 \end{figure}
+
+		 \begin{figure}[H]
+		    \center\includegraphics[scale=0.60]{resources/prng-tweet-ex.png}
+		    \caption{An example of how the \c{SingleCharBotMaster} design stores flag information in a information carrying tweet.}
+		    \label{fig:prng-tweet-ex}
+		 \end{figure}
+		
+			
+		\subsubsection{\teamol}
+
 	\subsection{Attacks}
+		\subsubsection{\teambb}
+			The first step in analyzing the data from \teamol was to see if there were any inconsistencies from the data set that caused a particular handle to differentiate itself. Using the \c{json} module from Python and simple queries across the dataset the botmaster handle was able to be identified since the frequency of tweeting was twice of any other handle. \\
+
+			We looked at several techniques in order to identify the master before the handle was found, for example looking at the frequency of different emoticons and any signal hashtags that may have been used. Once this handle was discovered, we wanted to dig deeper into reverse engineering the protocol used. \\
+
+			Among the set of tweets from the suspect handle, the first thing that stuck out was that many of the tweets had a space character appended to the end of the tweet. This furthered the suspicion that the handle was, in fact the botmaster, and we believed that a binary string was being encoded based on whether the tweet had a space or not to signal a 1 or 0. \\
+
+			Since we knew that the botmaster handle was not known, the botmaster would have had to been established and then 32 characters of the flag transfered. We tried various transformations of the binary string to convert it to the flag output, without success. 
+
+		\subsubsection{\teamol}
+
 	\subsection{Problems}
+		From this round we discovered problems both with the game and bot design. \\
+
+		The game used for this round was an inaccurate representation of Twitter. We allowed many assumptions, such as a very small user base, no social graph interactions, and access to the random tweet oracle. These simplifications allowed the attacking teams a great advantage when trying to analyze the bots. For example, any analysis that was done by hand would be unrealistic for the actual Twitter environment without large machine learning or crowd sourced infrastructure. \\ 
+		
+		The over arching problems with both bot designs is that the tweets that were generated by the botmaster did not allow it to blend in with other benign tweeters. This showed how difficult using steganography can be since neither team was able to mask the information they wished to hide within tweet effectively.  These types of errors were coupled with implementation flaws such as failing to mask the flag content in the \c{SingleCharBotMaster} or the mis-configured tweeting probability. \\
+
+		We did learn however that a high throughput is not necessary to the success of a botmaster. Since many users tweet with a high frequency, even if each tweet from the botmaster relays less than a single bit, not much information is needed to transfer signals to the bots. For example, a botmaster could post a large amount of malicious (spam) content to a public service such as pastebin \cite{pastebin} , and simple use twitter to communicate the URL to the bots. \\
+
 
 \section{Round 2}
 	\subsection{Modifications}
+		The second round introduced several modifications to the game structure. First, the number of bot handles was increased to 20, 2 of which were botmasters. This allowed the pool of active handles to increase and to give the designs more flexibility in their protocol. \\
+
+		The second major change was that the code of the bots was to be open sourced to the detection to see. The bots were allowed a configuration file with predefined constants, but all other code was going to be revealed. The motivation behind this was that botnets can be discovered and their source or binary deobfuscated. The network would be robust to such an attack and the botmaster handle should be able to remain anonymous. \\
+
+		
 	\subsection{Designs}
+		\subsubsection{\teambb}
+		\subsubsection{\teamol}
 	\subsection{Attacks}
+		\subsubsection{\teambb}
+		\subsubsection{\teamol}
 	\subsection{Problems}
 
 \section{Discussion}
@@ -199,6 +251,9 @@ The previous work in this field shows that, while botnets using social networks 
 
 \bibitem{skype}
 	\url{http://link.springer.com/chapter/10.1007\%2F978-3-642-14215-4_5}
+
+\bibitem{pastebin}
+	\url{http://pastebin.com/}
 
 \end{thebibliography}
 
