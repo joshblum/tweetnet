@@ -205,6 +205,8 @@ The previous work in this field shows that, while botnets using social networks 
 			where $d$ is the desired hex-digit and $S_k$ is a secret key included in the configuration file.
 
 			To further hide the flag communication, the bot does not tweet these flag-relevant tweets in succession.  Rather, it tweets between 0 and 4 superfluous tweets between each  flag-relevant tweet.  The bot also tweets a certain number of superfluous tweets before beginnning flag communication.  These numbers are determined by a synchronized psuedorandom number generator.
+
+			To effectively imitate natural communication frequency, \teamol implemented a \c{TweetQueue}.  Tweets are pushed onto the queue.  A single process handles popping and tweeting items from the queue so that a tweet frequency emulating the benign tweeters is maintained.
 	\subsection{Attacks}
 		\subsubsection{\teambb}
 		\subsubsection{\teamol}
@@ -213,6 +215,12 @@ The previous work in this field shows that, while botnets using social networks 
 \section{Discussion}
 
 	\subsection{What we learned}
+		Through our iterative game, we are able to realize the challenges faced by botnet designers and botnet detection teams.  
+
+		First, we realize that tweet frequency is a key aspect of any botnet and can often be a botnet's most vulnerable component.  In the first round of gameplay, we see that both teams were unsuccessful at achieving a natural tweet frequency.  This single flaw was easily visible to bot detection teams, and made identifying the botmaster easy.  In the second round, we see that even with the lessons of the first round learned, \teambb make mistakes which lead to detectable and unnatural tweet frequencies.  This shows that making frequency of communication natural is a key goal for designers of botnets using social networks.  Although this is a feasible goal, it is very easy to get wrong.  From the botnet detection perspective, characterizations of natural communication frequency and tools to detect deviations from this frequency are some of the most useful for detection teams.  
+
+		Another key aspect is natural tweet content.  In round 1, both teams used communication methods that altered tweet text.  These methods were then easily detected during the detection phase.  This shows that even seemingly concealing communication tactics that change natural text(like single character alterations) can be easily detected.  However, botnet designers can thwart this by using the hashing method used by both teams in round 2.  Despite this work around, it is still very important for detection teams to have a tool for distinguishing natural from unnatural text, as many bot designer may overlook this vulnerability.
+
 	\subsection{How this extends to real twitter}
 	\subsection{How this does \textit{not} extend to real twitter}
 	\subsection{Future Designs / work}
