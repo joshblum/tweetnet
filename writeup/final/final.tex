@@ -249,7 +249,10 @@ The previous work in this field shows that, while botnets using social networks 
 
 		
 	\subsection{Designs}
+        Perhaps due to the discussions we had following the results of the first round, the two bot schemes developed for the second round turned out 
 		\subsubsection{\teambb{}}
+        In the second round, \teambb{} built the \c{HashPadBot}. This bot begins by generating a secret 32-character hex string (the pad) to mask the flag, and a single character (4-bit) start signal. The start character and the pad are generated using an instance of Python's Random object, seeded with a 32-bit secret shared among all bots in the network. When the round starts, the botmaster tweets randomly until it receives the flag from the server. Upon receiving the flag, the botmaster sends the start character followed by the 32 characters of the flag XORed with the characters of the pad. Each masked character, $c_i$, is sent in one tweet, chosen at random from a precompiled library of legitimate tweets such that $c_i = \texttt{hash(tweet)} \pmod{16}$. The botmaster does not send any tweets which hash to the start character until the flag is received, and at all times the master tweets at the same frequency as the legitimate tweeters.
+        The listeners consume and discard tweets from the botmaster handle, which they know ahead of time, until one of them hashes to the precomputed start character. At this point, each listener consumes the next 32 tweets, decoding them to characters in the flag according to $f_i = \texttt{hash(tweet)} \pmod{16} \xor p_i$, where $f_i$ is the $i^{th}$ character in the flag and $p_i$ is the $i^{th}$ character in the pad. Once all 33 tweets have been consumed, the listener can submit the flag at its leisure.
 		\subsubsection{\teamol{}}
 			\teamol{} built the \c{MD5HashBot}. To communicate a flag, this bot first masked the flag via a synchronized pseudorandom number generator. This 32-digit masked flag along with a prepended 4-digit start signal is communicated one hex-digit at a time in the following way: The bot tweets a tweet with content $content$ such that
 			\[
@@ -264,6 +267,8 @@ The previous work in this field shows that, while botnets using social networks 
 		\subsubsection{\teambb{}}
 		\subsubsection{\teamol{}}
 	\subsection{Problems}
+		\subsubsection{\teambb{}}
+		\subsubsection{\teamol{}}
 
 \section{Discussion}
 
@@ -276,7 +281,10 @@ The previous work in this field shows that, while botnets using social networks 
 
 	\subsection{How this extends to real twitter}
 	\subsection{How this does \textit{not} extend to real twitter}
-	\subsection{Future Designs / work}
+        A related problem, which has plagued Twitter since its inception, is that of spambots. Spambots are computer-controlled twitter handles which tweet out ads, links, and otherwise annoying messages on behalf of a company or anonymous mischief maker. Spam detection is difficult. Several papers have been written on techniques for identifying these bots among the massive datasets that twitter produces, but as detection techniques advance, spambots evolve to compensate. Furthermore, since the goal of spambots is to send information for human consumption, they are restricted to messages in plain text or URLs. Botnets using Twitter are not hampered by such limitations. As we have demonstrated, information can be carried by sequences of arbitrary tweets using hashing, so a bot master only needs a sufficiently sized library of legitimate-sounding tweets to be able to transmit any possible message. Therefore, it seems likely that any botnet with sufficiently motivated operators can evade automated bot detection comparatively easily.
+        
+        In our tests, there were a small number of handles providing background noise in a very predictible fashion. This made it easy to look for subtle variations in timing and aggregate content in each handle's tweets, and to perform extensive analysis on every one. The real Twitter stream consists of millions of handles with wildly varying tweet patterns in several languages, so it is much more difficult to identify breaks from general trends. For example, \teambb{}'s botmaster in round 2 was identified in part because it tweeted half as frequently as normal handles; in reality, the normal range of tweet frequency spans orders of magnitude (anywhere from several times an hour to once or twice a year), so it would be infeasible to use this metric alone to filter out bots. In addition, it is computationally infeasible to analyze any significant fraction of the firehose at the level of detail that we were able to. 
+        \subsection{Future Designs / work}
 
 \section{Conclusion}
 
