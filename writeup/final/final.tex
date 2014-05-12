@@ -50,8 +50,8 @@
 
 \renewcommand{\c}[1]{\texttt{#1}}
 \newcommand\todo[1]{\textbf{\textcolor{red}{#1}}}
-\newcommand{\teambb}{\c{bennyblum }}
-\newcommand{\teamol}{\c{louisofir }}
+\newcommand{\teambb}{\c{bennyblum}}
+\newcommand{\teamol}{\c{louisofir}}
 \DeclareMathOperator{\MD}{MD}
 
 %----------------------------------------------------------------------------------------
@@ -193,13 +193,13 @@ The previous work in this field shows that, while botnets using social networks 
 
 \section{Round 1}
 	\subsection{Setup}
-		During the first round, each team designed a single \c{Bot} and \c{BotMaster} pair which had to submit a single flag. There were 10 unique handles used in the game pool, of which 1 was the botmaster and the other 9 being benign users, which would tweet with a $0.20$ probability each second. \teambb's bots knew the botmaster handle at the beginning of the round whereas \teamol's bots established the botmaster as part of their design. \\
+		During the first round, each team designed a single \c{Bot} and \c{BotMaster} pair which had to submit a single flag. There were 10 unique handles used in the game pool, of which 1 was the botmaster and the other 9 being benign users, which would tweet with a $0.20$ probability each second. \teambb{}'s bots knew the botmaster handle at the beginning of the round whereas \teamol{}'s bots established the botmaster as part of their design. \\
 
 		In this round bots were allowed to begin arbitrary secrets such as values for a random seed or cryptographic keys. The goal of this round was to allow the teams to familiarize themselves with the game infrastructure and begin building discovery techniques. For this reason, we allowed may simplifications to the game structure for this round, with the intent of modifying the game structure in the subsequent round. 
 
 	\subsection{Designs}
-		\subsubsection{\teambb}
-			\teambb built the \c{SingelCharBotMaster} which relied on a \c{prng} to signify tweets which were information carrying. The botmaster and bots both shared a common seed value for the \c{prng}. The \c{prng} was also used to transfer a single character in each tweet that was information carrying. The character offset and value for which information tweets was used by each next random value. Figure \ref{fig:prng} shows an example of how the \c{prng} was used to offset information tweets, and figure \ref{fig:prng-tweet-ex} shows how this offset is used to store a character of the flag within a tweet. \\
+		\subsubsection{\teambb{}}
+			\teambb{} built the \c{SingelCharBotMaster} which relied on a \c{prng} to signify tweets which were information carrying. The botmaster and bots both shared a common seed value for the \c{prng}. The \c{prng} was also used to transfer a single character in each tweet that was information carrying. The character offset and value for which information tweets was used by each next random value. Figure \ref{fig:prng} shows an example of how the \c{prng} was used to offset information tweets, and figure \ref{fig:prng-tweet-ex} shows how this offset is used to store a character of the flag within a tweet. \\
 
 		\begin{figure}[H]
 		    \center\includegraphics[scale=0.70]{resources/prng.png}
@@ -214,14 +214,14 @@ The previous work in this field shows that, while botnets using social networks 
 		 \end{figure}
 		
 			
-		\subsubsection{\teamol}
-			\teamol built the \c{SpaceBotmaster}. This botmaster used a space at the end of tweet text to signify a flag-relevant tweet. The master would insert a punctuation mark immediately preceding the space (`.', `,', `!', `?'), and this would provide two bits of the flag. There is also a special start-flag punctuation mark. 
+		\subsubsection{\teamol{}}
+			\teamol{} built the \c{SpaceBotmaster}. This botmaster used a space at the end of tweet text to signify a flag-relevant tweet. The master would insert a punctuation mark immediately preceding the space (`.', `,', `!', `?'), and this would provide two bits of the flag. There is also a special start-flag punctuation mark. 
 
-			\teamol also put in capabilities for the master to identify itself discreetly. The master partitioned time to 12-second windows. When the master tweets randomly (when it did not have a flag to communicate), it would tweet only in the first 6 seconds of the 12-second window. This way, when the botslaves analyzed the tweets of users, they would notice the master has a significant amount of tweets in the first 6 seconds of every 12-second window. Any other benign user tweets oblivious to this 12-second window, and thus tweets equally in the first 6 seconds as in the last 6 seconds. In this way, the master is able to discreetly make itself aware to the botslaves.
+			\teamol{} also put in capabilities for the master to identify itself discreetly. The master partitioned time to 12-second windows. When the master tweets randomly (when it did not have a flag to communicate), it would tweet only in the first 6 seconds of the 12-second window. This way, when the botslaves analyzed the tweets of users, they would notice the master has a significant amount of tweets in the first 6 seconds of every 12-second window. Any other benign user tweets oblivious to this 12-second window, and thus tweets equally in the first 6 seconds as in the last 6 seconds. In this way, the master is able to discreetly make itself aware to the botslaves.
 
 	\subsection{Attacks}
-		\subsubsection{\teambb}
-			The first step in analyzing the data from \teamol was to see if there were any inconsistencies from the data set that caused a particular handle to differentiate itself. Using the \c{json} Python module  and simple queries across the dataset, the botmaster handle was able to be identified since the frequency of tweeting was twice of any other handle. \\
+		\subsubsection{\teambb{}}
+			The first step in analyzing the data from \teamol{} was to see if there were any inconsistencies from the data set that caused a particular handle to differentiate itself. Using the \c{json} Python module  and simple queries across the dataset, the botmaster handle was able to be identified since the frequency of tweeting was twice of any other handle. \\
 
 			We looked at several techniques in order to identify the master before the handle was found, for example, looking at the frequency of different emoticons and any signal hashtags that may have been used. Once this handle was discovered, we wanted to dig deeper into reverse engineering the protocol used. \\
 
@@ -229,7 +229,7 @@ The previous work in this field shows that, while botnets using social networks 
 
 			Since we knew that the botmaster handle was not known to the bots initially, the botmaster would have had to been established and then 32 characters of the flag transfered. We tried various transformations of the binary string to convert it to the flag output, without success. 
 
-		\subsubsection{\teamol}
+		\subsubsection{\teamol{}}
 
 	\subsection{Problems}
 		From this round we discovered problems both with the game and bot design. \\
@@ -249,9 +249,9 @@ The previous work in this field shows that, while botnets using social networks 
 
 		
 	\subsection{Designs}
-		\subsubsection{\teambb}
-		\subsubsection{\teamol}
-			\teamol built the \c{MD5HashBot}. To communicate a flag, this bot first masked the flag via a synchronized pseudorandom number generator. This 32-digit masked flag along with a prepended 4-digit start signal is communicated one hex-digit at a time in the following way: The bot tweets a tweet with content $content$ such that
+		\subsubsection{\teambb{}}
+		\subsubsection{\teamol{}}
+			\teamol{} built the \c{MD5HashBot}. To communicate a flag, this bot first masked the flag via a synchronized pseudorandom number generator. This 32-digit masked flag along with a prepended 4-digit start signal is communicated one hex-digit at a time in the following way: The bot tweets a tweet with content $content$ such that
 			\[
 				d=\MD5(\MD5(content)\oplus S_k) \pmod{16},
 			\] 
@@ -259,10 +259,10 @@ The previous work in this field shows that, while botnets using social networks 
 
 			To further hide the flag communication, the bot does not tweet these flag-relevant tweets in succession. Rather, it tweets between 0 and 4 superfluous tweets between each  flag-relevant tweet. The bot also tweets a certain number of superfluous tweets before beginnning flag communication. These numbers are determined by a synchronized psuedorandom number generator.
 
-			To effectively imitate natural communication frequency, \teamol implemented a \c{TweetQueue}. Tweets are pushed onto the queue. A single process handles popping and tweeting items from the queue so that a tweet frequency emulating the benign tweeters is maintained.
+			To effectively imitate natural communication frequency, \teamol{} implemented a \c{TweetQueue}. Tweets are pushed onto the queue. A single process handles popping and tweeting items from the queue so that a tweet frequency emulating the benign tweeters is maintained.
 	\subsection{Attacks}
-		\subsubsection{\teambb}
-		\subsubsection{\teamol}
+		\subsubsection{\teambb{}}
+		\subsubsection{\teamol{}}
 	\subsection{Problems}
 
 \section{Discussion}
@@ -270,7 +270,7 @@ The previous work in this field shows that, while botnets using social networks 
 	\subsection{What we learned}
 		Through our iterative game, we are able to realize the challenges faced by botnet designers and botnet detection teams. 
 
-		First, we realize that tweet frequency is a key aspect of any botnet and can often be a botnet's most vulnerable component. In the first round of gameplay, we see that both teams were unsuccessful at achieving a natural tweet frequency. This single flaw was easily visible to bot detection teams, and made identifying the botmaster easy. In the second round, we see that even with the lessons of the first round learned, \teambb make mistakes which lead to detectable and unnatural tweet frequencies. This shows that making frequency of communication natural is a key goal for designers of botnets using social networks. Although this is a feasible goal, it is very easy to get wrong. From the botnet detection perspective, characterizations of natural communication frequency and tools to detect deviations from this frequency are some of the most useful for detection teams. 
+		First, we realize that tweet frequency is a key aspect of any botnet and can often be a botnet's most vulnerable component. In the first round of gameplay, we see that both teams were unsuccessful at achieving a natural tweet frequency. This single flaw was easily visible to bot detection teams, and made identifying the botmaster easy. In the second round, we see that even with the lessons of the first round learned, \teambb{} make mistakes which lead to detectable and unnatural tweet frequencies. This shows that making frequency of communication natural is a key goal for designers of botnets using social networks. Although this is a feasible goal, it is very easy to get wrong. From the botnet detection perspective, characterizations of natural communication frequency and tools to detect deviations from this frequency are some of the most useful for detection teams. 
 
 		Another key aspect is natural tweet content. In round 1, both teams used communication methods that altered tweet text. These methods were then easily detected during the detection phase. This shows that even seemingly concealing communication tactics that change natural text(like single character alterations) can be easily detected. However, botnet designers can thwart this by using the hashing method used by both teams in round 2. Despite this work around, it is still very important for detection teams to have a tool for distinguishing natural from unnatural text, as many bot designer may overlook this vulnerability.
 
