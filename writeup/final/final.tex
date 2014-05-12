@@ -98,7 +98,29 @@ In response the the growing threat of botnets using social networks, researchers
 The previous work in this field shows that, while botnets using social networks is a relatively recent phenomenon, the threat of even better concealed botnets is growing rapidly. For this reason, it is imperative that new detection mechanisms be devised.
 
 \section{Game Overview}
+	This section describes the simluaton of twitter we used in order to experiment with bot
+	detection and development techniques.
+
+	The twitter firehose, the stream of all tweets, is \todo{LOTS AND LOTS}
+	and kilobytes per second. Millions of tweets per second. Attempting to
+	identify a botnet in this from scratch would be extraordinarily difficult.
+	Instead, we decided to use a simluation of twitter and structure our
+	project as a game.
+	
+	\subsection{Description}
+		We planned on splitting up the four person group into two teams of two.
+		Each team would take a turn designing a bot and using it to send information
+		across twitter. The other team would use the tweet stream in order
+		to try and figure out what the command and control protocol weas
+		and which twitter handle was the botmaster.
+
 	\subsection{Justification}
+		The use of a game model for security was a reasonable decision.
+		First, it allow simulation of tactics at a small scale. The small
+		scale allowed us to focus on strategy and cryptography, not
+		dealing with twitter's massive amount of data. Second, there
+		is precedent for such models of security, such as \textsf{IND-CCA},
+		\textsf{IND-CCP}, and others.
 	\subsection{Infrastructure}
 	\subsection{Rules}
 
