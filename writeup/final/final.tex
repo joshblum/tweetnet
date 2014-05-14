@@ -49,6 +49,7 @@
 %\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
 
 \renewcommand{\c}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\c{#1}}
 \newcommand\todo[1]{\textbf{\textcolor{red}{#1}}}
 \newcommand{\teambb}{\c{bennyblum}}
 \newcommand{\teamol}{\c{louisofir}}
@@ -318,9 +319,14 @@ The previous work in this field shows that, while botnets using social networks 
 			The other vulnerabilities were not used to find the botmaster.  However, given a larger collection of tweets to analyze or more adverse conditions for the detection team, these vulnerabilities could have been exploited to better detect botnet activity.
 
 	\subsection{Problems}
-		\subsubsection{\teambb{}}
-
-		\subsubsection{\teamol{}}
+		The main problem that undermined the botnet designs in this round were not protocol designs, but rather coding errors.
+		These are still valid issues to discuss, as actual implementation of a protocol is an important part of applied security.
+		\teambb{} was undermined by an incomplete understanding of the python numerical model. Errors with under and overflow
+		are a very common source of bugs. Additionally, both teams put too much faith in the default python PRNG. It can easily
+		be brute forced. The number of bits in its seed is only 32 -- even when a python \code{long} is used as the seed, python
+		internally uses the hash value of that long, which is only 32 bits. These issues are implementation issues, not protocol
+		ones. Mistakes like these are a common source of security issues, and it is possible that python is not a suitable language
+		for designing cryptographic protocols.
 
 \section{Discussion}
 
