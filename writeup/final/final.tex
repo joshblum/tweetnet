@@ -228,12 +228,17 @@ The previous work in this field shows that, while botnets using social networks 
 % 	\end{figure}
 
 \section{Round 1}
+	This section describes the setup, designs, attacks, and takeaways from the first round of gameplay, where each team
+	built a botmaster.
+
 	\subsection{Setup}
 		During the first round, each team designed a single \c{Bot} and \c{BotMaster} pair which had to submit a single flag. There were 10 unique handles used in the game pool, of which 1 was the botmaster and the other 9 being benign users, which would tweet with a $0.20$ probability each second. \teambb{}'s bots knew the botmaster handle at the beginning of the round whereas \teamol{}'s bots established the botmaster as part of their design. \\
 
 		In this round bots were allowed to begin arbitrary secrets such as values for a random seed or cryptographic keys. The goal of this round was to allow the teams to familiarize themselves with the game infrastructure and begin building discovery techniques. For this reason, we allowed may simplifications to the game structure for this round, with the intent of modifying the game structure in the subsequent round. 
 
 	\subsection{Designs}
+		This section presents the designs for bots and botmasters implemented for round one.
+	
 		\subsubsection{\teambb{}}
 			\teambb{} built the \c{SingelCharBotMaster} which relied on a \c{prng} to signify tweets which were information carrying. The botmaster and bots both shared a common seed value for the \c{prng}. The \c{prng} was also used to transfer a single character in each tweet that was information carrying. The character offset and value for which information tweets was used by each next random value. Figure \ref{fig:prng} shows an example of how the \c{prng} was used to offset information tweets, and figure \ref{fig:prng-tweet-ex} shows how this offset is used to store a character of the flag within a tweet. \\
 
@@ -256,6 +261,8 @@ The previous work in this field shows that, while botnets using social networks 
 			\teamol{} also put in capabilities for the master to identify itself discreetly. The master partitioned time to 12-second windows. When the master tweets randomly (when it did not have a flag to communicate), it would tweet only in the first 6 seconds of the 12-second window. This way, when the botslaves analyzed the tweets of users, they would notice the master has a significant amount of tweets in the first 6 seconds of every 12-second window. Any other benign user tweets oblivious to this 12-second window, and thus tweets equally in the first 6 seconds as in the last 6 seconds. In this way, the master is able to discreetly make itself aware to the botslaves.
 
 	\subsection{Attacks}
+		This section presents the attacks that were used on the designs of round one.
+
 		\subsubsection{\teambb{}}
 			The first step in analyzing the data from \teamol{} was to see if there were any inconsistencies from the data set that caused a particular handle to differentiate itself. Using the \c{json} Python module  and simple queries across the dataset, the botmaster handle was able to be identified since the frequency of tweeting was twice of any other handle. \\
 
@@ -288,6 +295,8 @@ The previous work in this field shows that, while botnets using social networks 
 
 
 \section{Round 2}
+	This section is a description of the events of the second round.
+
 	\subsection{Modifications}
 		The second round introduced several modifications to the game structure. First, the number of bot handles was increased to 20, 2 of which were botmasters. This allowed the pool of active handles to increase and to give the designs more flexibility in their protocol. \\
 
@@ -313,6 +322,8 @@ The previous work in this field shows that, while botnets using social networks 
 
 			To effectively imitate natural communication frequency, \teamol{} implemented a \c{TweetQueue}. Tweets are pushed onto the queue. A single process handles popping and tweeting items from the queue so that a tweet frequency emulating the benign tweeters is maintained.
 	\subsection{Attacks}
+		This section presents the attacks that were used by the various teams on the round 2 designs.
+
 		\subsubsection{\teambb{}}
 
 		\subsubsection{\teamol{}}
@@ -339,6 +350,8 @@ The previous work in this field shows that, while botnets using social networks 
 		for designing cryptographic protocols.
 
 \section{Discussion}
+	This section presents a discussion of the results above. We discuss what we learned, the applicability of our project
+	to the real twitter.com, and possible future work.
 
 	\subsection{What we learned}
 		Through our iterative game, we are able to realize the challenges faced by botnet designers and botnet detection teams. 
