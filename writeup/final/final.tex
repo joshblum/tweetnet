@@ -161,9 +161,9 @@ The previous work in this field shows that, while botnets using social networks 
 		but rather to build a limited subset of them for ourselves. There were
 		three reasons for this. First, we were worried about the ramifications
 		of using automated twitter accounts on twitter, including ones
-		that were designed for botnets \todo{https://support.twitter.com/articles/18311-the-twitter-rules}.
+		that were designed for botnets.
 		Second, some infrastructure would be needed for the game, such as
-		keeping track of when bots have \todo{submitted a flag}. Since some infrastructure
+		keeping track of when information has been successfully transferred. Since some infrastructure
 		would already be needed, it made sense to create a limited version of twitter as well.
 		Finally, it made testing and using the bots much more effective. We didn't have
 		to deal with millions of tweets, only those germane to our game.
@@ -174,13 +174,21 @@ The previous work in this field shows that, while botnets using social networks 
 		Having given the background on our game, this section now gives a description
 		of the initial rules.
 		\begin{itemize}
-		 \item Two 
-		 \item bar
-		 \item bax
-		 \item bloop
-		 \item foop
-		 \item blap
+		 \item There are two teams -- the attacking team and the defending team. The attacking
+		 	team is trying to use twitter as a command an control channel, while the defending
+			team is trying to catch them.
+		 \item There are 10 twitter users - 9 \textit{benign} tweeters, who simulate regular people,
+		 	and 1 username controlled by the attacking team.
+		 \item The defending team randomly generate a \textit{flag}, which is is random 128 bit
+			hexadecimal string
+		 \item The attacking team must pass this flag to 10 \textit{bots}, using only twitter
+		 	as the communication channel.
+		\item When a bot receives a flag, it submits it to the defender as proof of the communication
 		\end{itemize}
+
+		For enforcement of the rules, we relied both on the infrastructure described above as well
+		as on an implicit cooperative understanding between the same teams, who would not want to
+		be labelled cheaters in a project.
 
 % \section{Meet the Team}
 % 	\subsection{Team Blumbenny}
@@ -308,6 +316,7 @@ The previous work in this field shows that, while botnets using social networks 
 			Due to vulnerability (2) \teamol{} was able to narrow down the search to tweeters which only tweeted a tweet whose hash yields a `0' start signal after the first flag.  Subsequently, \teamol{} looked at the 32 tweets following the start signal, and exploited vulnerability (1) to find the partially unmasked flag.  This showed \c{tweetnet16} to be the only candidate botmaster.  This was confirmed via vulnerability (3): \c{tweetnet16} had the lowest number of tweets in the period when there was no flag to be communicated.  \teamol{} was even able to successfully brute-force a search for the randomization seed, which definitively identified \c{tweetnet16} as the botmaster.
 
 			The other vulnerabilities were not used to find the botmaster.  However, given a larger collection of tweets to analyze or more adverse conditions for the detection team, these vulnerabilities could have been exploited to better detect botnet activity.
+
 	\subsection{Problems}
 		\subsubsection{\teambb{}}
 
