@@ -266,6 +266,16 @@ The previous work in this field shows that, while botnets using social networks 
 			Since we knew that the botmaster handle was not known to the bots initially, the botmaster would have had to been established and then 32 characters of the flag transfered. We tried various transformations of the binary string to convert it to the flag output, without success. 
 
 		\subsubsection{\teamol{}}
+	We were able to almost entirely discover \teambb{}'s design. We began with visual inspection of the collection of tweets,
+	an we immediately noticed aberrations such as \code{r8ally}, \code{RTa@coolman123} -- patterns that did not look anything
+	like what would normally appear on twitter. We further noticed that all of these strange aberrations came from the same
+	username: \code{tweetnet01}.
+
+	Then, we computed tweet frequency by username, and discovered that \code{tweetnet01} had tweeted almost twice as many times
+	as the rest of the usernames had. This cemented our suspicion that \code{tweetnet01} was the botmaster. By visually inspecting
+	all of \code{tweetnet01}'s tweets, with a highlighter and pen in hand, we were able to find an entire flag embedded in
+	outlying tweets. By examining the pattern of flag character offset and gap between flag tweets, we further identified their
+	pattern of $n$-down, $n$-over. We decided this was based on a PRNG, and did not pursue the seed any further.
 
 	\subsection{Problems}
 		From this round we discovered problems both with the game and bot design. \\
