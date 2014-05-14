@@ -98,22 +98,22 @@ In response the the growing threat of botnets using social networks, researchers
 The previous work in this field shows that, while botnets using social networks is a relatively recent phenomenon, the threat of even better concealed botnets is growing rapidly. For this reason, it is imperative that new detection mechanisms be devised.
 
 \section{Game Overview}
-	This section describes the simluaton of twitter we used in order to experiment with bot
+	This section describes the simulaton of twitter we used in order to experiment with bot
 	detection and development techniques.
 
-	The twitter firehose, the stream of all tweets, is \todo{LOTS AND LOTS}
-	and kilobytes per second. Millions of tweets per second. Attempting to
+	The twitter firehose, the stream of all tweets, is 
+	thousands of tweets per second -- millions per day. Attempting to
 	identify a botnet in this from scratch would be extraordinarily difficult.
-	Instead, we decided to use a simluation of twitter and structure our
+	Instead, we decided to use a simulation of twitter and structure our
 	project as a game.
 	
 	\subsection{Description}
 		We planned on splitting up the four person group into two teams of two.
 		Each team would take a turn designing a bot and using it to send information
 		across twitter. The other team would use the tweet stream in order
-		to try and figure out what the command and control protocol weas
+		to try and figure out what the command and control protocol was
 		and which twitter handle was the botmaster. The defending team
-		would be able to pick what information was transfered, and would
+		would be able to pick what information was transferred, and would
 		know all the tweets that were sent and by whom.
 
 	\subsection{Justification}
@@ -145,9 +145,9 @@ The previous work in this field shows that, while botnets using social networks 
 
 	\subsection{Rules}
 		Having given the background on our game, this section now gives a description
-		of what the specific rules and goals were.
+		of the initial rules.
 		\begin{itemize}
-		 \item foo
+		 \item Two 
 		 \item bar
 		 \item bax
 		 \item bloop
@@ -296,6 +296,12 @@ The previous work in this field shows that, while botnets using social networks 
 		Another key aspect is natural tweet content. In round 1, both teams used communication methods that altered tweet text. These methods were then easily detected during the detection phase. This shows that even seemingly concealing communication tactics that change natural text(like single character alterations) can be easily detected. However, botnet designers can thwart this by using the hashing method used by both teams in round 2. Despite this work around, it is still very important for detection teams to have a tool for distinguishing natural from unnatural text, as many bot designer may overlook this vulnerability.
 
 	\subsection{How this extends to real twitter}
+	Some of what we've learned with regard to detecting and creating command and control over our simulated twitter can be applied to the
+	actual twitter service. One thing is the ease of hiding information in a tweet by using the hash of a randomly generated, realistic looking tweet.
+	This technique could definitely be used to send significant amounts of information, covertly. Another thing we learned that does extend to real
+	twitter is that for a botnet to be successful, it would not need to transfer large amounts of data over the command and control channel. The order of
+	bytes is sufficient to serve as a pointer to further instructions for the botnet. Twitter may be just one component of an elaborate command and control scheme.
+
 	\subsection{How this does \textit{not} extend to real twitter}
     A related problem, which has plagued Twitter since its inception, is that of spambots. Spambots are computer-controlled twitter handles which tweet out ads, links, and otherwise annoying messages on behalf of a company or anonymous mischief maker. Spam detection is difficult. Several papers have been written on techniques for identifying these bots among the massive datasets that twitter produces \cite{botdetect} \cite{spambotML} \cite{socialnet_spam}, but as detection techniques advance, spambots evolve to compensate. Furthermore, since the goal of spambots is to send information for human consumption, they are restricted to messages in plain text or URLs. Botnets using Twitter are not hampered by such limitations. As we have demonstrated, information can be carried by sequences of arbitrary tweets using hashing, so a bot master only needs a sufficiently sized library of legitimate-sounding tweets to be able to transmit any possible message. Therefore, it seems likely that any botnet with sufficiently motivated operators can evade automated bot detection comparatively easily.
 
