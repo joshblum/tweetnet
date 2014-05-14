@@ -90,11 +90,11 @@ Louis Sobel (sobel@mit.edu)\\
     implements a botnet, and has a limited amount of time to send a random
     signal over a Twitter-like network; the goal is to do so without being
     detected by the other team, as well as to discover the details of the other
-    team's botnet. We conducted two rounds of the game under different sets of
-    rules. We found that an adversary who takes sufficient precautions with his
-    or her design can communicate complex, arbitrary commands over Twitter
-    in a way that is most likely infeasible to detect, even if the source code
-    of the scheme is compromised.
+    team's botnet. Two rounds of the game were run under different sets of
+    rules. Based on the results, we conclude that an adversary who takes
+    sufficient precautions with his or her design can communicate complex,
+    arbitrary commands over Twitter in a way that is most likely infeasible to
+    detect, even if the source code of the scheme is compromised.
     
 \end{abstract}
 
@@ -389,12 +389,35 @@ The previous work in this field shows that, while botnets using social networks 
 	bytes is sufficient to serve as a pointer to further instructions for the botnet. Twitter may be just one component of an elaborate command and control scheme.
 
 	\subsection{How this does \textit{not} extend to real twitter}
-    A related problem, which has plagued Twitter since its inception, is that of spambots. Spambots are computer-controlled twitter handles which tweet out ads, links, and otherwise annoying messages on behalf of a company or anonymous mischief maker. Spam detection is difficult. Several papers have been written on techniques for identifying these bots among the massive datasets that twitter produces \cite{botdetect} \cite{spambotML} \cite{socialnet_spam}, but as detection techniques advance, spambots evolve to compensate. Furthermore, since the goal of spambots is to send information for human consumption, they are restricted to messages in plain text or URLs. Botnets using Twitter are not hampered by such limitations. As we have demonstrated, information can be carried by sequences of arbitrary tweets using hashing, so a bot master only needs a sufficiently sized library of legitimate-sounding tweets to be able to transmit any possible message. Therefore, it seems likely that any botnet with sufficiently motivated operators can evade automated bot detection comparatively easily.
+    A related problem, which has plagued Twitter since its inception, is that of
+    spambots. Spambots are computer-controlled twitter handles which tweet out
+    ads, links, and otherwise annoying messages on behalf of a company or
+    anonymous mischief maker. Spam detection is difficult. Several papers have
+    been written on techniques for identifying these bots among the massive
+    datasets that twitter produces \cite{botdetect} \cite{spambotML}
+    \cite{socialnet_spam}, but as detection techniques advance, spambots evolve
+    to compensate. Furthermore, since the goal of spambots is to send
+    information for human consumption, they are restricted to messages in plain
+    text or URLs. Botnets using Twitter are not hampered by such limitations. As
+    we have demonstrated, information can be carried by sequences of arbitrary
+    tweets using hashing, so a bot master only needs a sufficiently sized
+    library of legitimate-sounding tweets to be able to transmit any possible
+    message. Therefore, it seems likely that any botnet with sufficiently
+    motivated operators can evade automated bot detection comparatively easily.
 
-	\subsection{Future Designs / work}
-        A related problem, which has plagued Twitter since its inception, is that of spambots. Spambots are computer-controlled twitter handles which tweet out ads, links, and otherwise annoying messages on behalf of a company or anonymous mischief maker. Spam detection is difficult. Several papers have been written on techniques for identifying these bots among the massive datasets that twitter produces, but as detection techniques advance, spambots evolve to compensate. Furthermore, since the goal of spambots is to send information for human consumption, they are restricted to messages in plain text or URLs. Botnets using Twitter are not hampered by such limitations. As we have demonstrated, information can be carried by sequences of arbitrary tweets using hashing, so a bot master only needs a sufficiently sized library of legitimate-sounding tweets to be able to transmit any possible message. Therefore, it seems likely that any botnet with sufficiently motivated operators can evade automated bot detection comparatively easily.
-        
-        In our tests, there were a small number of handles providing background noise in a very predictible fashion. This made it easy to look for subtle variations in timing and aggregate content in each handle's tweets, and to perform extensive analysis on every one. The real Twitter stream consists of millions of handles with wildly varying tweet patterns in several languages, so it is much more difficult to identify breaks from general trends. For example, \teambb{}'s botmaster in round 2 was identified in part because it tweeted half as frequently as normal handles; in reality, the normal range of tweet frequency spans orders of magnitude (anywhere from several times an hour to once or twice a year), so it would be infeasible to use this metric alone to filter out bots. In addition, it is computationally infeasible to analyze any significant fraction of the firehose at the level of detail that we were able to. 
+    In our tests, there were a small number of handles providing background
+    noise in a very predictible fashion. This made it easy to look for
+    subtle variations in timing and aggregate content in each handle's
+    tweets, and to perform extensive analysis on each one. The real Twitter
+    stream consists of millions of handles with wildly varying tweet
+    patterns in several languages, so it is much more difficult to identify
+    breaks from general trends. For example, \teambb{}'s botmaster in round
+    2 was identified in part because it tweeted half as frequently as normal
+    handles; in reality, the normal range of tweet frequency spans orders of
+    magnitude (anywhere from several times an hour to once or twice a year),
+    so it would be infeasible to use this metric alone to filter out bots.
+    In addition, it is computationally infeasible to analyze any significant
+    fraction of the firehose at the level of detail that we were able to. 
         \subsection{Future Designs / work}
 
         The current mock Twitter infrastructure could be extended to modify the gameplay and make the simulation more realistic. Some aspects of gameplay were never explored, such as analyzing the social graph through followers, or having a distribution of benign user behavior. Modifying these part of the infrastructure would change how the detecting teams could perform their analysis and move the detection closer to what it would be like when using real tweets. \\
@@ -404,7 +427,7 @@ The previous work in this field shows that, while botnets using social networks 
 
 \section{Conclusion}
 
-        Botnets are bad, mkay?
+        
 
 
 \renewcommand\bibsection{\section{References}}
