@@ -85,6 +85,33 @@ Louis Sobel (sobel@mit.edu)\\
 \clearpage
 
 \section {Introduction}
+Botnets represent some of the most persistent threats on the internet today.
+Over the past two decades, as the world wide web has grown into a massive,
+unregulated platform for global commerce and innovation, so too has the use of
+networks of hijacked computers for malicious purposes. A botnet, as such a
+network is known, typically consists of a collection of machines infected with a
+particular malware program, which allows them to covertly communicate with other
+infected machines, perform their intended function, and act on commands issued
+by a central operator. Botnet operators can leverage their armies of "zombies"
+to distribute spam, spread malware, or execute targeted DDoS attacks. Most users
+of infected computers do not know that they are compromised. 
+
+A central aspect of botnet design is the "command and control" (C\&C) scheme:
+the operator must be able to control infected machines in a reliable, scalable
+manner, while avoiding detection and securing against intervention from
+competing parties. At its core, C\&C requires a way to send messages to thousands
+of machines in secret.
+
+Twitter is an easy-to-use social media platform with a quick signup process, a
+reliable distributed messenging service, and a robust API. In this project, we
+looked at the use of Twitter as a platform for botnet command and control. Our
+ultimate goal was to detect a botnet "in the wild," but along the way, we wanted
+to determine how such a scheme might be designed, what challenges the
+implementation would face, and what methods could be used to decect it. In order
+to do so, we designed a game, split our group into two teams - \teambb{} and
+\teamol{} - and competed to try to communicate a message from a 'master' to a
+collection of "slaves" on a simplified model of Twitter. The result was
+Tweetnet.
 
 \section {Related Work}
 Botnets using social networks for command and control are a relatively recent phenomenon. These botnets take advantage of the reliable infrastructure and easy-to-use APIs of social networks to communicate commands to infected computers. Several of these botnets have already been detected. 
@@ -317,6 +344,8 @@ The previous work in this field shows that, while botnets using social networks 
 
 
 \section{Conclusion}
+
+        Botnets are bad, mkay?
 
 
 \clearpage
