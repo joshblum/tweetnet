@@ -37,6 +37,7 @@
 \usepackage{enumitem}
 \usepackage{listings}
 \usepackage{color}
+\usepackage[numbers, sort]{natbib}
 \usepackage[]{hyperref}
 
 
@@ -386,64 +387,11 @@ The previous work in this field shows that, while botnets using social networks 
         Botnets are bad, mkay?
 
 
-\clearpage
-\section{References}
-
-\begingroup
-\renewcommand{\section}[2]{}%
-\begin{thebibliography}{99}
-
-\bibitem{arbor}
-	\url{http://www.arbornetworks.com/asert/2009/08/twitter-based-botnet-command-channel/}
-
-\bibitem{trendmicro}
-	\url{http://www.trendmicro.com/cloud-content/us/pdfs/security-intelligence/white-papers/wp_discerning-relationships__mexican-botnet.pdf}
-
-\bibitem{cryptome}
-	\url{http://cryptome.org/2014/03/massive-twitter-botnet.htm}
-
-\bibitem{socialnetworking}
-	\url{http://www.mecs-press.org/ijcnis/ijcnis-v5-n6/IJCNIS-V5-N6-2.pdf}
-
-\bibitem{trojan7}
-	\url{http://trojan7malware.blogspot.com/2013/06/botnet-using-twitter-as-c.html}
-
-\bibitem{flashback}
-	\url{http://www.intego.com/mac-security-blog/flashback-mac-malware\%2Duses-twitter-as-command-and-control-center/}
-
-\bibitem{botsniffer}
-	\url{http://corescholar.libraries.wright.edu/cgi/viewcontent.cgi?article=1006&context=cse}
-
-\bibitem{kartaltepe}
-	\url{http://link.springer.com/chapter/10.1007/978-3-642-13708-2_30}
-
-\bibitem{burghouwt}
-	\url{http://link.springer.com/chapter/10.1007/978-3-642-25560-1_9}
-
-\bibitem{botnet_survey}
-	\url{http://www.sciencedirect.com/science/article/pii/S1389128612003568#}
-
-\bibitem{stegobot}
-	\url{http://www.cs.utexas.edu/~amir/papers/IH11-Stegobot.pdf}
-
-\bibitem{skype}
-	\url{http://link.springer.com/chapter/10.1007\%2F978-3-642-14215-4_5}
-
-\bibitem{pastebin}
-	\url{http://pastebin.com/}
-
-\bibitem{botdetect}
-    \url{http://www.cs.wm.edu/~hnw/paper/tdsc12b.pdf}
-
-\bibitem{spambotML}
-    \url{http://personal.psu.edu/students/h/x/hxw164/files/DBSec2010_Wang.pdf}
-
-\bibitem{socialnet_spam}
-    \url{http://www.cse.fau.edu/~xqzhu/courses/Resources/GSC.acsac10-socialnets.pdf}
-
-\end{thebibliography}
-
-\endgroup
+\renewcommand\bibsection{\section{References}}
+\renewcommand*{\bibfont}{\footnotesize}
+\setlength\bibsep{3pt}
+\bibliographystyle{ieeetr}
+\bibliography{tweetnet}
 
 \end{document}
 
