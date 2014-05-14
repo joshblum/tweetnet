@@ -170,7 +170,7 @@ The previous work in this field shows that, while botnets using social networks 
 		Finally, it made testing and using the bots much more effective. We didn't have
 		to deal with millions of tweets, only those germane to our game.
 		The infrastructure we built supports basic usernames and tweeting.
-		The code is available \todo{here}.
+		The code is available at \url{https://github.com/joshblum/tweetnet}.
 
 	\subsection{Rules}
 		Having given the background on our game, this section now gives a description
@@ -326,6 +326,12 @@ The previous work in this field shows that, while botnets using social networks 
 		This section presents the attacks that were used by the various teams on the round 2 designs.
 
 		\subsubsection{\teambb{}}
+
+		After reviewing \teamol's code, the best attack approach was to try to see which handles, if any, distinguished themselves from the pool. Unlike the previous round, there were no implementation errors that made an obvious deviation from the pool, such as a large number of extra tweets. We analyzed the mean time between tweets to see if the time to find a tweet with the correct hash was noticeable. \\
+
+		\teamol's bots would submit the immediately flag upon decoding it fully, however since all of the bots tweeted with the same probability, there was no way to distinguish a tweet that occurred close to the flag submission time as originating from the botmaster. \\
+
+		The design was very similar to the design for \teambb, however, it did not have the implementation flaws of our \c{HashBot} and took advantage of the game features, such as perfect tweet oracle and constant tweet distribution. 
 
 		\subsubsection{\teamol{}}
 			With \teambb{}'s code in hand, we were able to identify several coding errors and vulnerabilities:  
