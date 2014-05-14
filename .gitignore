@@ -16,3 +16,5 @@ env
 *.pyc
 *.rdb
 *.fdb_latexmk
+final.bbl
+final.blg
